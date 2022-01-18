@@ -83,7 +83,20 @@ List::List() {
 }
 
 List::List(const List &lst) {
-    
+    if(lst.empty()) {
+        head = nullptr;
+        m_size = 0;
+    }else{
+        head = new Node(lst.head->item);
+        head->next = head;
+        head->prev = head;
+        m_size = 1;
+        Node *currente = lst.head->next;
+        while(currente != lst.head) {
+            push_back(currente->item);
+            currente = currente->next;
+        }
+    }
 }
 
 List::~List() {
@@ -99,10 +112,24 @@ size_t List::size() const {
 }
 
 void List::clear() {
-
+    if(!empty()) {
+        Node *current = head->next;
+        Node *next;
+        while(current != head) {
+            next = current->next;
+            delete current;
+            current = next;
+        }
+        delete head;
+        head = nullptr;
+    }
 }
 
+// Funcao com decisao de projeto
 Item& List::front() {
+    if(empty()) {
+        throw std::out_of_range("List is empty");
+    }
     return head->item;
 }
 
@@ -130,68 +157,98 @@ void List::push_front(const Item &data) {
 
         head = newNode;
     }
+    m_size++;
 }
 
 void List::push_back(const Item &data) {
+    if(empty()) {
+        head = new Node(data);
+        head->next = head;
+        head->prev = head;
+    }else{
+        Node *last = head->prev;
 
+        Node *newNode = new Node(data);
+        newNode->next = head;
+        newNode->prev = last;
+
+        last->next = newNode;
+        head->prev = newNode;
+    }
+    m_size++;
 }
 
+// 1 - Henryck
 void List::pop_front() {
 
 }
 
+// 2 - Vitor
 void List::pop_back() {
 
 }
 
+// 3 - Vitor
 void List::insertAt(const Item &data, int index) {
 
 }
 
+// 4 - Henryck
 void List::removeAt(int index) {
 
 }
 
+// 5 - Vitor
 void List::removeAll(const Item &data) {
 
 }
 
+// 6 - Vitor
 void List::swap(List &lst) {
 
 }
 
+// 7 - Vitor
 void List::concat(List &lst) {
 
 }
 
+// 8 - Henryck
 void *List::copy() {
 
 }
 
+// 9 - Vitor
 void List::append(Item vec[], int n) {
 
 }
 
+// 10 - Henryck
 bool List::equals(const List &lst) const {
 
 }
 
+// 11 - Vitor
 void List::reverse() {
 
 }
+
 
 void List::merge(List &lst) {
 
 }
 
+// 12 - Henryck
 std::ostream &operator<<(std::ostream &out, const List &lst) {
 
 }
 
+// 13 - Henryck
 Item &List::operator[](int index) {
 
 }
 
+// 14 - Henryck
 List &List::operator=(const List &lst) {
 
 }
