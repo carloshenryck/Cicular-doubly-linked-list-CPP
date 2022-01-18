@@ -114,7 +114,22 @@ Item& List::back() {
 }
 
 void List::push_front(const Item &data) {
+    if(empty()) {
+        head = new Node(data);
+        head->next = head;
+        head->prev = head;
+    }else{
+        Node *last = head->prev;
 
+        Node *newNode = new Node(data);
+        newNode->next = head;
+        newNode->prev = last;
+
+        last->next = newNode;
+        head->prev = newNode;
+
+        head = newNode;
+    }
 }
 
 void List::push_back(const Item &data) {
