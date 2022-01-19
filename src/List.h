@@ -185,12 +185,40 @@ void List::pop_front() {
 
 // 2 - Vitor
 void List::pop_back() {
+    if(empty()) {
+        throw std::out_of_range("List is empty");
+    }
+    else if(m_size == 1) {
+        head = nullptr;
+        m_size = 0;
+    }else{
+        Node *last = head->prev;
 
+        head->prev = last->prev;
+        last->prev->next = head;
+
+        delete last;
+        m_size--;
+    }
 }
 
 // 3 - Vitor
 void List::insertAt(const Item &data, int index) {
-
+    if(index < 0 || index > m_size) {
+        throw std::out_of_range("Index out of range");
+    }else if(index == 0) {
+        push_front(data);
+    }else{
+        Node *newNode = new Node(data);
+        Node *current = head;
+        for(int i = 0; i < index-1; i++) {
+            current = current->next;
+        }
+        current->next->prev = newNode;
+        newNode->next = current->next;
+        current->next = newNode;
+        newNode->prev = current;
+    }
 }
 
 // 4 - Henryck
