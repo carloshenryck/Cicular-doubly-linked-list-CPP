@@ -228,7 +228,27 @@ void List::removeAt(int index) {
 
 // 5 - Vitor
 void List::removeAll(const Item &data) {
-
+    if(!empty()) {
+        if(m_size == 1 && head->item == data) {
+            head = nullptr;
+            m_size = 0;
+        }else{
+            Node *current = head->next;
+            Node *temp = nullptr;
+            while(current != head){
+                if(current->item == data) {
+                    temp = current;
+                    current->prev->next = current->next;
+                    current->next->prev = current->prev;
+                    current = current->next;
+                    delete temp;
+                    m_size--;
+                }else{
+                    current = current->next;
+                }
+            } 
+        }
+    }
 }
 
 // 6 - Vitor

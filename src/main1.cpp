@@ -7,10 +7,19 @@ int main() {
 
     List l1;
 
-    l1.insertAt(1, 0);
-    l1.insertAt(3, 0);
-    l1.insertAt(2, 1);
-    l1.insertAt(5, 2);
+    l1.push_back(1);
+
+    l1.removeAll(1);
+
+    l1.push_back(1);
+    l1.push_back(2);
+
+    l1.removeAll(2);
+
+    l1.push_back(2);
+    l1.push_back(3);
+
+    l1.removeAll(2);
 
 
     return 0;
