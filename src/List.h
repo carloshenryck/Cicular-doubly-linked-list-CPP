@@ -180,7 +180,20 @@ void List::push_back(const Item &data) {
 
 // 1 - Henryck
 void List::pop_front() {
-
+    if(empty()) {
+        throw std::out_of_range("List is empty");
+    }
+    else if(m_size == 1) {
+        head = nullptr;
+        m_size = 0;
+    } else {
+        Node *last = head->prev;
+    
+        head = head->next;
+        head->prev = last;
+        last->next = head;
+        m_size--;
+    }
 }
 
 // 2 - Vitor
@@ -223,7 +236,27 @@ void List::insertAt(const Item &data, int index) {
 
 // 4 - Henryck
 void List::removeAt(int index) {
+    if(index >= 0 && index <= m_size - 1) {
+        if(index == 0) {
+            pop_front();
+        } else if(index == m_size - 1) {
+            pop_back();
+        } else {
+            Node *temp = head;
+            while(index > 0) {
+                temp = temp->next;
+                index--;
+            }
 
+            Node *tempPrev = temp->prev;
+            tempPrev->next = temp->next;
+            temp->next->prev = tempPrev;
+            delete temp;
+            m_size--;
+        }
+    } else {
+        throw std::out_of_range("Index out of range");
+    }
 }
 
 // 5 - Vitor
@@ -288,7 +321,15 @@ void List::merge(List &lst) {
 
 // 12 - Henryck
 std::ostream &operator<<(std::ostream &out, const List &lst) {
+    Node *current = lst.head->next;
 
+    out << lst.head->item << " ";
+    while(current != lst.head) {
+        out << current->item << " ";
+        current = current->next;
+    }
+    out << std::endl;
+    return out;
 }
 
 // 13 - Henryck
