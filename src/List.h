@@ -122,6 +122,7 @@ void List::clear() {
         }
         delete head;
         head = nullptr;
+        m_size = 0;
     }
 }
 
@@ -298,17 +299,27 @@ void List::swap(List &lst) {
 
 // 7 - Vitor
 void List::concat(List &lst) {
-
+    if(!lst.empty()) {
+        push_back(lst.head->item);
+        Node *current = lst.head->next;
+        while(current != lst.head) {
+            push_back(current->item);
+            current = current->next;
+        }
+        lst.clear();
+    }
 }
 
 // 8 - Henryck
 void *List::copy() {
-
+    
 }
 
 // 9 - Vitor
 void List::append(Item vec[], int n) {
-
+    for(int i=0; i<n; i++) {
+        push_back(vec[i]);
+    }
 }
 
 // 10 - Henryck
@@ -318,7 +329,19 @@ bool List::equals(const List &lst) const {
 
 // 11 - Vitor
 void List::reverse() {
-
+    if(!empty() || m_size != 1){
+        Node *current = head->next;
+        Node *temp = nullptr;
+        while(current != head) {
+            temp = current->next;
+            current->next = current->prev;
+            current->prev = temp;
+            current = temp;
+        }
+        current->next = head->prev;
+        current->prev = head->next;
+        head = current->next;
+    }
 }
 
 
