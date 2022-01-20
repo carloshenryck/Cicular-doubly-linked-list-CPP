@@ -232,6 +232,7 @@ void List::insertAt(const Item &data, int index) {
         newNode->next = current->next;
         current->next = newNode;
         newNode->prev = current;
+        m_size++;
     }
 }
 
@@ -375,7 +376,29 @@ void List::reverse() {
 
 
 void List::merge(List &lst) {
+    if(lst.empty()) {
+        throw std::out_of_range("the list passed is empty");
+    } else if(empty()) {
+        *this = lst;
+        lst.clear();
+    } else {
+        Node *current = lst.head;
+        int count = 0;
 
+        for(int i = 1; i < m_size; i+=2) {
+            insertAt(current->item, i);
+            current = current->next;
+            count++;
+        }
+
+        if(count < lst.m_size) {
+            for(int i = 0; i < lst.m_size-count; i++) {
+                push_back(current->item);
+                current = current->next;
+            }
+        }
+        lst.clear();
+    }
 }
 
 // 12 - Henryck
