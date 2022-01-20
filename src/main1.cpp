@@ -18,6 +18,5 @@ int main() {
     cout << l1 << endl;
 
 
-
     return 0;
 }

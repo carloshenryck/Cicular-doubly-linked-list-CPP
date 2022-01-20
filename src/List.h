@@ -312,7 +312,21 @@ void List::concat(List &lst) {
 
 // 8 - Henryck
 void *List::copy() {
+    List *copy = new List();
+
+    if(empty()) {
+        return copy;
+    }
+
+    copy->push_back(head->item);
+    Node* current = head->next;
+
+    while(current != head) {
+        copy->push_back(current->item);
+        current = current->next;
+    }
     
+    return copy;
 }
 
 // 9 - Vitor
@@ -351,6 +365,10 @@ void List::merge(List &lst) {
 
 // 12 - Henryck
 std::ostream &operator<<(std::ostream &out, const List &lst) {
+    if(lst.empty()) {
+        return out;
+    }
+
     Node *current = lst.head->next;
 
     out << lst.head->item << " ";
@@ -364,7 +382,21 @@ std::ostream &operator<<(std::ostream &out, const List &lst) {
 
 // 13 - Henryck
 Item &List::operator[](int index) {
+    if(empty() || index >= m_size || index < 0) {
+        throw std::out_of_range("Index out of range");
+    } else if(index == 0) {
+        return front();
+    } else if(index == m_size - 1) {
+        return back();
+    } else {
+        Node* temp = head;
+        while(index > 0) {
+            temp = temp->next;
+            index--;
+        }
 
+        return temp->item;
+    }
 }
 
 // 14 - Henryck
