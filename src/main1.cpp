@@ -28,9 +28,8 @@ int main() {
     l1.push_back(3);
     l1.push_back(4);
     l1.push_back(5);
-    l1.removeAt(10);
 
-    cout << l1;
+    cout << l1[2];
 
     return 0;
 }

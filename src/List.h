@@ -328,20 +328,40 @@ void List::merge(List &lst) {
 
 // 12 - Henryck
 std::ostream &operator<<(std::ostream &out, const List &lst) {
+    if(lst.empty()) {
+        out << "[ " << "]";
+        return out;
+    }
+
     Node *current = lst.head->next;
 
+    out << "[ ";
     out << lst.head->item << " ";
     while(current != lst.head) {
         out << current->item << " ";
         current = current->next;
     }
-    out << std::endl;
+    out << "]" << std::endl;
     return out;
 }
 
 // 13 - Henryck
 Item &List::operator[](int index) {
+    if(empty() || index >= m_size || index < 0) {
+        throw std::out_of_range("Index out of range");
+    } else if(index == 0) {
+        return front();
+    } else if(index == m_size - 1) {
+        return back();
+    } else {
+        Node* temp = head;
+        while(index > 0) {
+            temp = temp->next;
+            index--;
+        }
 
+        return temp->item;
+    }
 }
 
 // 14 - Henryck
