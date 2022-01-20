@@ -338,7 +338,22 @@ void List::append(Item vec[], int n) {
 
 // 10 - Henryck
 bool List::equals(const List &lst) const {
-
+    if(empty() && lst.empty()) {
+        return true;
+    } else if(m_size != lst.m_size) {
+        return false;
+    } else {
+        if(head->item == lst.head->item) {
+            Node *current = head->next;
+            Node *lstCurrent = lst.head->next;
+            while(current != head) {
+                if(current->item != lstCurrent->item) return false;
+                current = current->next;
+                lstCurrent = lstCurrent->next;
+            }
+            return true;
+        }    
+    }
 }
 
 // 11 - Vitor

@@ -6,17 +6,10 @@ using namespace std;
 int main() {
 
     List l1;
+    List l2;
 
     l1.push_back(1);
-    l1.push_back(2);
-    l1.push_back(3);
-
-    cout << l1 << endl;
-
-    l1.reverse();
-
-    cout << l1 << endl;
-
-
+    l2.push_back(1);
+    l1.equals(l2);
     return 0;
 }
