@@ -286,7 +286,14 @@ void List::removeAll(const Item &data) {
 
 // 6 - Vitor
 void List::swap(List &lst) {
-
+    if(!empty() && !lst.empty()) {
+        Node *temp = head;
+        head = lst.head;
+        lst.head = temp;
+        int aux = m_size;
+        m_size = lst.m_size;
+        lst.m_size = aux;
+    }
 }
 
 // 7 - Vitor
