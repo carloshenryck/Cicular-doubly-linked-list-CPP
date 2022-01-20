@@ -303,7 +303,21 @@ void List::concat(List &lst) {
 
 // 8 - Henryck
 void *List::copy() {
+    List *copy = new List();
 
+    if(empty()) {
+        return copy;
+    }
+
+    copy->push_back(head->item);
+    Node* current = head->next;
+
+    while(current != head) {
+        copy->push_back(current->item);
+        current = current->next;
+    }
+    
+    return copy;
 }
 
 // 9 - Vitor
@@ -329,19 +343,17 @@ void List::merge(List &lst) {
 // 12 - Henryck
 std::ostream &operator<<(std::ostream &out, const List &lst) {
     if(lst.empty()) {
-        out << "[ " << "]";
         return out;
     }
 
     Node *current = lst.head->next;
 
-    out << "[ ";
     out << lst.head->item << " ";
     while(current != lst.head) {
         out << current->item << " ";
         current = current->next;
     }
-    out << "]" << std::endl;
+    out << std::endl;
     return out;
 }
 

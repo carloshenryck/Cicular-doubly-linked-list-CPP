@@ -29,7 +29,7 @@ int main() {
     l1.push_back(4);
     l1.push_back(5);
 
-    cout << l1[2];
+    l1.copy();
 
     return 0;
 }
