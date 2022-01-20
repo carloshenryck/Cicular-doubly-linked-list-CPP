@@ -416,7 +416,19 @@ Item &List::operator[](int index) {
 
 // 14 - Henryck
 List &List::operator=(const List &lst) {
+    clear();
+    if(lst.empty()) {
+        return *this;
+    }
+    push_back(lst.head->item);
 
+    Node* current = lst.head->next;
+    while(current != lst.head) {
+        push_back(current->item);
+        current = current->next;
+    }
+
+    return *this;
 }
 
 #endif
