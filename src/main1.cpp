@@ -9,18 +9,14 @@ int main() {
     List l2;
 
     l1.push_back(1);
-    l1.push_back(3);
-    l1.push_back(4);
     l1.push_back(2);
 
-    l2.push_back(8);
-    l2.push_back(10);
-    l2.push_back(12);
-    l2.push_back(14);
-    l2.push_back(24);
-    l2.push_back(34);
+    cout << l1 << endl;
 
-    l1.merge(l2);
-    cout << l1;
+    l1.removeAll(1);
+
+    cout << l1 << endl;
+
+
     return 0;
 }
