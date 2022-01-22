@@ -60,7 +60,7 @@ class List {
 
         void concat(List &lst); 
 
-        void *copy(); 
+        List *copy(); 
 
         void append(Item vec[], int n); 
 
@@ -320,7 +320,7 @@ void List::concat(List &lst) {
 }
 
 // 8 - Henryck
-void *List::copy() {
+List *List::copy() {
     List *copy = new List();
 
     if(empty()) {

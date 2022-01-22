@@ -62,6 +62,12 @@ int main() {
 				int l = std::stoi(tokens[3]);
 				listas[l]->insertAt(x, i);
 			}
+            // removeAt x l
+            else if(tokens[0] == "removeAt") {
+                int x = std::stoi(tokens[1]);
+				int l = std::stoi(tokens[2]);
+				listas[l]->removeAt(x);
+            }
 			// removeAll x l
 			else if(tokens[0] == "removeAll") {
 				int x = std::stoi(tokens[1]);
@@ -101,6 +107,27 @@ int main() {
 					cout << "lista " << i << ": " << *listas[i] << endl;
 				}	
 			}
+            //copy x
+            else if(tokens[0] == "copy") {
+                int x = std::stoi(tokens[1]);
+                List *lst = new List;
+                lst = listas[x]->copy();
+                listas.push_back(lst);
+            }
+            //equals x l
+            else if(tokens[0] == "equals") {
+                int x = std::stoi(tokens[1]);
+				int l = std::stoi(tokens[2]);
+				bool equal = listas[l]->equals(*listas[x]);
+                if(equal) cout << "listas iguais" << endl; 
+                else cout << "listas diferentes" << endl;
+            } 
+            //merge x 1 
+            else if(tokens[0] == "merge") {
+                int x = std::stoi(tokens[1]);
+				int l = std::stoi(tokens[2]);
+				listas[l]->merge(*listas[x]);
+            }
 			else {
 				cout << "comando inexistente" << endl;
 			}
