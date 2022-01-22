@@ -245,11 +245,15 @@ void List::removeAt(int index) {
             pop_back();
         } else {
             Node *temp = head;
+            //iremos inserir o nó que iremos remover dentro da variável temp
+            //para isso, vamos utilizar um loop, que irá rodar até o indice indicado
             while(index > 0) {
                 temp = temp->next;
                 index--;
             }
 
+            //em seguida, com o nó que queremos remover já dentro da variável temp
+            //podemos prosseguir com a lógica de remoção do nó
             Node *tempPrev = temp->prev;
             tempPrev->next = temp->next;
             temp->next->prev = tempPrev;
@@ -321,6 +325,8 @@ void List::concat(List &lst) {
 
 // 8 - Henryck
 List *List::copy() {
+    //criar uma nova lista, e percorrer todos os elementos da nossa lista atual
+    //para cada elemento da lista atual, iremos realizar o pushBack do elemento na nossa nova lista
     List *copy = new List();
 
     if(empty()) {
@@ -352,6 +358,9 @@ bool List::equals(const List &lst) const {
     } else if(m_size != lst.m_size) {
         return false;
     } else {
+        //percorrer todos os nós de ambas as listas, e verificar se são iguais
+        //porém, será necessário verificar o head antes de iniciar o loop,
+        //visto que o loop não irá verificar o head
         if(head->item == lst.head->item) {
             Node *current = head->next;
             Node *lstCurrent = lst.head->next;
@@ -395,13 +404,16 @@ void List::merge(List &lst) {
     } else {
         Node *current = lst.head;
         int count = 0;
-
+        //vamos inserir os números da segunda lista que couberem entre os números da primeira lista
         for(int i = 1; i < m_size; i+=2) {
+            //como o m_size aumenta em cada inserção, será necessário que 
+            //ao final de cada loop, a variável i, some mais dois
             insertAt(current->item, i);
             current = current->next;
             count++;
         }
 
+        //caso ainda haja números na segunda lista, iremos realizar apenas o push_back deles
         if(count < lst.m_size) {
             for(int i = 0; i < lst.m_size-count; i++) {
                 push_back(current->item);
@@ -449,12 +461,14 @@ Item &List::operator[](int index) {
 
 // 14 - Henryck
 List &List::operator=(const List &lst) {
+    //iremos iniciar limpando a lista na qual recebera lst
     clear();
     if(lst.empty()) {
         return *this;
     }
     push_back(lst.head->item);
-
+    //após isso, iremos apenas percorrer toda a lista lst, fazendo o pushBack de todos os seus elementos
+    //dentro da lista que limpamos
     Node* current = lst.head->next;
     while(current != lst.head) {
         push_back(current->item);
