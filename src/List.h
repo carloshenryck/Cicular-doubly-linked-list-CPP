@@ -281,7 +281,15 @@ void List::removeAll(const Item &data) {
                 }else{
                     current = current->next;
                 }
-            } 
+            }
+            if(current->item == data) {
+                temp = current;
+                current->prev->next = current->next;
+                current->next->prev = current->prev;
+                head = current->next;
+                delete temp;
+                m_size--;
+            }
         }
     }
 }
@@ -348,13 +356,16 @@ bool List::equals(const List &lst) const {
             Node *current = head->next;
             Node *lstCurrent = lst.head->next;
             while(current != head) {
-                if(current->item != lstCurrent->item) return false;
+                if(current->item != lstCurrent->item){
+                    return false;
+                }
                 current = current->next;
                 lstCurrent = lstCurrent->next;
             }
             return true;
-        }    
+        }
     }
+    return false;
 }
 
 // 11 - Vitor
@@ -414,7 +425,6 @@ std::ostream &operator<<(std::ostream &out, const List &lst) {
         out << current->item << " ";
         current = current->next;
     }
-    out << std::endl;
     return out;
 }
 
