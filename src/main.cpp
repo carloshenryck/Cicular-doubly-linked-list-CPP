@@ -55,7 +55,7 @@ int main() {
 			else if(tokens[0] == "popBack") {
 				int l = std::stoi(tokens[1]);
 				listas[l]->pop_back();
-			}// insertAt 
+			}// insertAt x i l
 			else if(tokens[0] == "insertAt") {
 				int x = std::stoi(tokens[1]);
 				int i = std::stoi(tokens[2]);
@@ -131,19 +131,6 @@ int main() {
 			else {
 				cout << "comando inexistente" << endl;
 			}
-			// clone l
-			// else if(tokens[0] == "clone") {
-			// 	int l = std::stoi(tokens[1]);
-			// 	List *lcp = listas[l]->clone();
-			// 	listas.push_back(lcp);
-			// }
-			// equals l1 l2 
-			// else if(tokens[0] == "equals") {
-			// 	int l1 = std::stoi(tokens[1]);
-			// 	int l2 = std::stoi(tokens[2]);
-			// 	if(listas[l1]->equals(*listas[l2])) cout << "listas iguais" << endl;
-			// 	else cout << "listas diferentes" << endl;
-			// }
 
 		}catch(std::exception& e) {
 			cout << "Erro: " << e.what() << endl;

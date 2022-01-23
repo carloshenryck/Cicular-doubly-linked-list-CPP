@@ -126,7 +126,6 @@ void List::clear() {
     }
 }
 
-// Funcao com decisao de projeto
 Item& List::front() {
     if(empty()) {
         throw std::out_of_range("List is empty");
@@ -142,20 +141,29 @@ Item& List::back() {
 }
 
 void List::push_front(const Item &data) {
+    // Verifica se o head é nulo
     if(empty()) {
+        // Se sim, faz o head apontar para o novo node
         head = new Node(data);
+        // head aponta para ele mesmo
         head->next = head;
         head->prev = head;
     }else{
+        // Se não, pega o last node
         Node *last = head->prev;
 
+        // Cria um newNode
         Node *newNode = new Node(data);
+
+        // Faz o newNode next apontar para o head e newNode prev apontar para o last
         newNode->next = head;
         newNode->prev = last;
 
+        // Faz o last next apontar para o newNode e o head prev apontar para o newNode
         last->next = newNode;
         head->prev = newNode;
 
+        // Portanto, como o newNode se torna o primeiro da lista, o head passa a ser o newNode
         head = newNode;
     }
     m_size++;
@@ -199,39 +207,56 @@ void List::pop_front() {
 
 // 2 - Vitor
 void List::pop_back() {
+    // Verifica se a lista está vazia
     if(empty()) {
+        // Se sim, lança uma exceçao
         throw std::out_of_range("List is empty");
     }
     else if(m_size == 1) {
+        // Caso o tamanho da lista for 1, então apenas remove o head e o tamanho passa a ser 0
+        delete head;
         head = nullptr;
         m_size = 0;
     }else{
+        // Caso contrario, recupera o last node
         Node *last = head->prev;
 
+        // Faz o head apontar para o penultimo node da lista
         head->prev = last->prev;
+        // Faz o penultimo node apontar de volta para o head
         last->prev->next = head;
 
+        // Por fim, apaga o last node e atualiza o tamanho da lista
         delete last;
+        last = nullptr;
         m_size--;
     }
 }
 
 // 3 - Vitor
 void List::insertAt(const Item &data, int index) {
-    if(index < 0 || index > m_size) {
+    // Verifica se o index é menor que 0 ou maior que o tamanho da lista
+    if(index < 0 || index > m_size-1) {
+        // Se sim, lança uma exceçao
         throw std::out_of_range("Index out of range");
     }else if(index == 0) {
+        // Se o index for 0, entao chama o push_front para adionar o item no começo da lista
         push_front(data);
     }else{
+        // Caso contrário, cria um newNode
         Node *newNode = new Node(data);
+        // Cria um node auxiliar para pecorrer a lista
         Node *current = head;
+        // Pecorre a lista até chegar no node que deve ser inserido
         for(int i = 0; i < index-1; i++) {
             current = current->next;
         }
+        // Agora podemos inserir o newNode entre o current e o current->next
         current->next->prev = newNode;
         newNode->next = current->next;
         current->next = newNode;
         newNode->prev = current;
+        // Atualiza o tamanho da lista
         m_size++;
     }
 }
@@ -263,13 +288,27 @@ void List::removeAt(int index) {
 
 // 5 - Vitor
 void List::removeAll(const Item &data) {
+    // Verifica se a lista está vazia
     if(!empty()) {
+        // Se não, se a lista tiver apenas um item e o item for o igual ao data, então remove o head e o tamanho passa a ser 0
         if(m_size == 1 && head->item == data) {
+            delete head;
             head = nullptr;
             m_size = 0;
         }else{
+            /**
+             * Caso contrário, cria um node auxiliar para percorrer a lista
+             * e um node temporario para guardar o que vai ser removido.
+             */
             Node *current = head->next;
             Node *temp = nullptr;
+            /**
+             * Pecorre a lista verificando se o item do node atual é igual ao data
+             * Se sim, então temp recebe o current
+             * Conecta o anterior do current com o seguinte do current
+             * Current aponta para o proximo node
+             * Deleta o temp e atualiza o tamanho da lista
+             */
             while(current != head){
                 if(current->item == data) {
                     temp = current;
@@ -282,6 +321,10 @@ void List::removeAll(const Item &data) {
                     current = current->next;
                 }
             }
+            /**
+             * Current chegou no head, então verifica se o item do head é igual ao data
+             * Se sim, aplica os passos anteriores
+             */
             if(current->item == data) {
                 temp = current;
                 current->prev->next = current->next;
@@ -290,7 +333,13 @@ void List::removeAll(const Item &data) {
                 delete temp;
                 m_size--;
             }
+            // Caso a lista tenha ficado vazia, entao head recebe nullptr
+            if(m_size == 0) {
+                head = nullptr;
+            }
         }
+    }else{
+        throw std::out_of_range("List is empty");
     }
 }
 
@@ -370,15 +419,25 @@ bool List::equals(const List &lst) const {
 
 // 11 - Vitor
 void List::reverse() {
+    // Verifica se a lista nao esta vazio ou se tem apenas um item
     if(!empty() || m_size != 1){
+        // Cria um node auxiliar para percorrer a lista e um temporario para guardar o que vai ser trocado
         Node *current = head->next;
         Node *temp = nullptr;
+        /**
+         * Pecorre a lista
+         * troca o next do current com o prev do current,
+         * assim, o proximo do current passa a ser o anterior do current
+         * e o anterior do current passa a ser o proximo do current
+         */
         while(current != head) {
             temp = current->next;
             current->next = current->prev;
             current->prev = temp;
             current = temp;
         }
+        // Current recebe o ultimo node da lista
+        // Head recebe current, passando ser o primeiro node da lista
         current->next = head->prev;
         current->prev = head->next;
         head = current->next;
