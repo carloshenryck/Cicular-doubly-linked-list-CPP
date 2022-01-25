@@ -5,7 +5,8 @@
 #include "List.h"
 using namespace std;
 
-// NAO MEXA NESTA FUNCAO, ELA ESTA TERMINADA
+//  Aluno: Vitor Alves        Matrícula: 497602
+//  Aluno: Carlos Henryck     Matrícula: 494802
 int main() {
 
 	vector<List*> listas;

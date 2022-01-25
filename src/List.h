@@ -26,54 +26,119 @@ class List {
         int m_size;
         
     public:
+        //Construtor vazio da classe List. Cria uma lista vazia. Deve iniciar todos os atributos
+        //da classe com valores válidos.
         List(); 
 
+        //Construtor de cópia da classe List. Esse construtor recebe como parâmetro uma
+        //referência para um objeto lst do tipo List e inicializa a sua lista com os mesmos
+        //elementos da lista lst.
         List(const List &lst); 
 
+        //Destrutor da classe. Libera toda a memória que for alocada dinamicamente pela
+        //estrutura
         ~List(); 
 
+        //Retorna se a lista está vazia.
         bool empty() const; 
 
+        //Retorna o número de nós da lista. O tipo de retorno size t j´a encontra-se definido
+        //por padrão no C++ e é a mesma coisa que um unsigned int.
         size_t size() const; 
 
+        //Esvazia a lista
         void clear(); 
 
+        //Retorna uma referência para o primeiro elemento na lista.
         Item &front(); 
 
+        //Retorna uma referência para o último elemento na lista. Se a lista estiver vazia, essa
+        //função deve lançar uma exceção (exception).
         Item &back(); 
 
+        //Adiciona um Item no início da lista.
         void push_front(const Item &data); 
 
+        //Adiciona um Item ao final da lista.
         void push_back(const Item &data); 
 
+        //Remove o elemento no início da lista. Se a lista estiver vazia, essa função deve lançar
+        //uma exceção (exception).
         void pop_front(); 
 
+        //Remove o elemento no final da lista. Se a lista estiver vazia, essa função deve lançar
+        //uma exceção (exception).
         void pop_back(); 
 
+        //Insere um novo Item na posição index da lista. Dada uma lista com n elementos,
+        //esta função só deve inserir o novo elemento se e somente se 0 ≤ index ≤ n. Caso
+        //contrário, uma exceção deve ser lançada. Esta função deve ter complexidade O(n)
+        //no pior caso.
         void insertAt(const Item &data, int index); 
 
+        //Remove o elemento na posição index da lista e retorna o seu valor. Dada uma
+        //lista com n elementos, esta função só deve remover o elemento se e somente se 0 ≤
+        //index ≤ n − 1. Caso contrário, uma exceção deve ser lançada. Esta função deve ter
+        //complexidade O(n) no pior caso.
         void removeAt(int index); 
 
+        //Remove da lista todas as ocorrências do elemento data passado como parâmetro.
+        //Esta função deve ter complexidade O(n) no pior caso.
         void removeAll(const Item &data); 
 
+        //Troca o conte´udo da lista com o conte´udo da lista lst. Ap´os a chamada a esta
+        //fun¸c˜ao-membro, os elementos nesta lista s˜ao aqueles que estavam em lst antes da
+        //chamada e os elementos de lst s˜ao aqueles que estavam nesta lista.
         void swap(List &lst); 
 
+        //Concatena a lista atual com a lista lst passada por parˆametro. Ap´os essa opera¸c˜ao
+        //ser executada, lst ser´a uma lista vazia, ou seja, o ´unico n´o de lst ser´a o n´o sentinela.
+        //Esta fun¸c˜ao deve ter complexidade O(n) no pior caso.
         void concat(List &lst); 
 
+        //Retorna um ponteiro para uma c´opia desta lista. A c´opia desta lista deve ser uma
+        //outra lista, que deve ser criada dinamicamente dentro da fun¸c˜ao. Esta fun¸c˜ao deve
+        //ter complexidade O(n) no pior caso.
         List *copy(); 
 
+        //Esta fun¸c˜ao recebe um array de Item e o seu tamanho n como entrada e copia os
+        //elementos do array para a lista. Todos os elementos anteriores da lista s˜ao mantidos e
+        //os elementos do array devem ser adicionados ap´os os elementos originais. Esta fun¸c˜ao
+        //deve ter complexidade O(n) no pior caso
         void append(Item vec[], int n); 
 
+        //Determina se a lista lst passada por parˆametro ´e igual `a lista em quest˜ao. Duas
+        //listas s˜ao iguais se elas possuem o mesmo tamanho e o valor do k-´esimo elemento
+        //da primeira lista ´e igual ao k-´esimo elemento da segunda lista. Esta fun¸c˜ao deve ter
+        //complexidade O(n). Esta fun¸c˜ao deve ter complexidade O(n) no pior caso.
         bool equals(const List &lst) const; 
 
+        //Inverte a ordem dos elementos na lista. Esta fun¸c˜ao deve ter complexidade O(1) no
+        //pior caso.
         void reverse(); 
 
+        //Recebe uma lista lst como parˆametro e constr´oi uma nova lista que ser´a a intercala¸c˜ao dos elementos da lista original com os elementos da lista passada por
+        //parˆametro. Ao final desta opera¸c˜ao, lst deve ficar vazia. Como um exemplo, imagine duas listas de inteiros L1 = [ 1 2 3 4 ] e L2 = [ 7 8 9 0 5 6 ]. Ent˜ao, o resultado
+        //da opera¸c˜ao L1.merge(L2) nos d´a as listas L1 = [ 1 7 2 8 3 9 4 0 5 6 ] e L2 = [].
         void merge(List &lst); 
 
+        //Esta fun¸c˜ao sobrecarrega o operador de inser¸c˜ao <<. Esta fun¸c˜ao deve ser implementada como uma fun¸c˜ao global friend da classe List. Esta fun¸c˜ao recebe como
+        //entrada um fluxo de sa´ıda de dados out e uma lista lst e insere no fluxo out os
+        //elementos da lista a fim de que eles sejam impressos no terminal.
         friend std::ostream &operator<<(std::ostream &out, const List &lst); 
 
+        //Esta fun¸c˜ao sobrecarrega o operador de indexa¸c˜ao [ ]. Ela retorna uma referˆencia
+        //para o elemento no ´ındice index. Se esse ´ındice n˜ao for v´alido, uma excess˜ao deve
+        //ser lan¸cada por esta fun¸c˜ao.
         Item &operator[](int index); 
 
+        //Esta fun¸c˜ao sobrecarrega o operador de atribui¸c˜ao. Esta fun¸c˜ao adiciona `a lista os
+        //mesmos elementos que est˜ao na lista lst. Ao fazer isso, ela apaga todos os elementos
+        //da lista original para que ela possa receber os novos elementos. Por exemplo, considere
+        //duas listas P = [ 2 3 4 ] e Q = [ 6 7 8 9 ]. Ap´os a opera¸c˜ao:
+        //P = Q;
+        //temos que as listas ser˜ao P = [ 6 7 8 9 ] e Q = [ 6 7 8 9 ], onde P e Q s˜ao duas listas
+        //distintas.
         List &operator=(const List &lst);
 };
 
@@ -263,10 +328,14 @@ void List::insertAt(const Item &data, int index) {
 
 // 4 - Henryck
 void List::removeAt(int index) {
+    //verifica se o indice é vacilo
     if(index >= 0 && index <= m_size - 1) {
+        
         if(index == 0) {
+            //se o indice apontar para o primeiro nó, basta chamar a função pop_front();
             pop_front();
         } else if(index == m_size - 1) {
+            //se o indice apontar para o último nó, basta chamar a função pop_back();
             pop_back();
         } else {
             Node *temp = head;
@@ -279,6 +348,8 @@ void List::removeAt(int index) {
 
             //em seguida, com o nó que queremos remover já dentro da variável temp
             //podemos prosseguir com a lógica de remoção do nó
+            //obs: a lógica abaixo é aplicada para remover apenas nós centrais
+            //pois nós do começo ou fim seriam removidos nas condições anteriores
             Node *tempPrev = temp->prev;
             tempPrev->next = temp->next;
             temp->next->prev = tempPrev;
@@ -374,17 +445,20 @@ void List::concat(List &lst) {
 
 // 8 - Henryck
 List *List::copy() {
-    //criar uma nova lista, e percorrer todos os elementos da nossa lista atual
-    //para cada elemento da lista atual, iremos realizar o pushBack do elemento na nossa nova lista
+    //cria uma nova lista
     List *copy = new List();
 
+    //verifica se a lista que queremos duplicar está vazia
     if(empty()) {
         return copy;
     }
 
+    //adicionamos o head a nossa lista que receberá a cópia, através da função push_back
     copy->push_back(head->item);
     Node* current = head->next;
 
+    //agora iremos andar por toda a nossa lista, sendo que para cada nó da nossa atual lista
+    //iremos realizar o push_back do nó para a lista copy
     while(current != head) {
         copy->push_back(current->item);
         current = current->next;
@@ -403,20 +477,24 @@ void List::append(Item vec[], int n) {
 // 10 - Henryck
 bool List::equals(const List &lst) const {
     if(empty() && lst.empty()) {
+        //verifica se as listas estão vazias
         return true;
     } else if(m_size != lst.m_size) {
+        //verifica se o tamanho das listas são diferentes
         return false;
     } else {
-        //percorrer todos os nós de ambas as listas, e verificar se são iguais
-        //porém, será necessário verificar o head antes de iniciar o loop,
-        //visto que o loop não irá verificar o head
+        //verifica o head antes de iniciar o loop, visto que o loop não irá verificar o head
         if(head->item == lst.head->item) {
+            //cria duas variáveis, para que com elas possamos percorrer os nós das duas listas
             Node *current = head->next;
             Node *lstCurrent = lst.head->next;
+            //percorre todos os nós de ambas as listas, e verifica se são iguais
             while(current != head) {
                 if(current->item != lstCurrent->item){
+                    //caso algum nó seja diferente do outro, irá retornar falso
                     return false;
                 }
+                //avança os nós para o próximo
                 current = current->next;
                 lstCurrent = lstCurrent->next;
             }
@@ -453,7 +531,7 @@ void List::reverse() {
     }
 }
 
-
+//Henryck
 void List::merge(List &lst) {
     if(lst.empty()) {
         throw std::out_of_range("the list passed is empty");
